@@ -11,7 +11,7 @@ export default function Dashboard() {
 
       {/* Welcome */}
       <View style={styles.card}>
-        <Text style={styles.title}>Welcome 👋</Text>
+        <Text style={styles.title}>Welcome</Text>
         <Text>Hello Student</Text>
         <Text>Have a great day!</Text>
       </View>
@@ -63,13 +63,13 @@ export default function Dashboard() {
       <View style={styles.card}>
         <Text style={styles.title}>Recent Survey Summary</Text>
 
-        <Text>✔ Road Inspection</Text>
+        <Text> Road Inspection</Text>
         <Text>Status : Completed</Text>
         <Text>Time : 10:30 AM</Text>
 
         <View style={{ height: 15 }} />
 
-        <Text>✔ Building Survey</Text>
+        <Text>Building Survey</Text>
         <Text>Status : Completed</Text>
         <Text>Time : 3:45 PM</Text>
       </View>
