@@ -7,7 +7,9 @@ import {
   TouchableOpacity,
   Alert,
   ScrollView,
+  Platform,
 } from "react-native";
+import DateTimePicker from "@react-native-community/datetimepicker";
 
 export default function Survey() {
   const [siteName, setSiteName] = useState("");
@@ -15,6 +17,26 @@ export default function Survey() {
   const [description, setDescription] = useState("");
   const [priority, setPriority] = useState("");
   const [date, setDate] = useState("");
+
+  const [showDatePicker, setShowDatePicker] = useState(false);
+  const [selectedDate, setSelectedDate] = useState(new Date());
+
+  const onChangeDate = (event, selected) => {
+    setShowDatePicker(false);
+
+    if (selected) {
+      setSelectedDate(selected);
+
+      const formattedDate =
+        selected.getDate().toString().padStart(2, "0") +
+        "/" +
+        (selected.getMonth() + 1).toString().padStart(2, "0") +
+        "/" +
+        selected.getFullYear();
+
+      setDate(formattedDate);
+    }
+  };
 
   const submitSurvey = () => {
     if (
@@ -35,6 +57,7 @@ export default function Survey() {
     setDescription("");
     setPriority("");
     setDate("");
+    setSelectedDate(new Date());
   };
 
   return (
@@ -101,12 +124,24 @@ export default function Survey() {
       </View>
 
       <Text style={styles.label}>Date</Text>
-      <TextInput
+
+      <TouchableOpacity
         style={styles.input}
-        placeholder="DD/MM/YYYY"
-        value={date}
-        onChangeText={setDate}
-      />
+        onPress={() => setShowDatePicker(true)}
+      >
+        <Text style={{ color: date ? "#000" : "#999" }}>
+          {date ? date : "Select Date"}
+        </Text>
+      </TouchableOpacity>
+
+      {showDatePicker && (
+        <DateTimePicker
+          value={selectedDate}
+          mode="date"
+          display={Platform.OS === "ios" ? "spinner" : "default"}
+          onChange={onChangeDate}
+        />
+      )}
 
       <TouchableOpacity style={styles.button} onPress={submitSurvey}>
         <Text style={styles.buttonText}>Submit Survey</Text>
@@ -143,6 +178,7 @@ const styles = StyleSheet.create({
     borderColor: "#ccc",
     borderRadius: 8,
     padding: 12,
+    justifyContent: "center",
   },
 
   priorityContainer: {
@@ -171,6 +207,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     marginTop: 30,
     alignItems: "center",
+    marginBottom: 20,
   },
 
   buttonText: {
