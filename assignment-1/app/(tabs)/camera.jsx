@@ -9,6 +9,7 @@ import {
   Image,
 } from "react-native";
 import { CameraView, useCameraPermissions } from "expo-camera";
+import * as MediaLibrary from "expo-media-library";
 
 export default function CameraScreen() {
   const cameraRef = useRef(null);
@@ -18,6 +19,8 @@ export default function CameraScreen() {
   const [loading, setLoading] = useState(true);
   const [photo, setPhoto] = useState(null);
   const [captureTime, setCaptureTime] = useState("");
+  const [mediaPermission, requestMediaPermission] =
+  MediaLibrary.usePermissions();
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -26,6 +29,9 @@ export default function CameraScreen() {
 
     return () => clearTimeout(timer);
   }, []);
+  useEffect(() => {
+  requestMediaPermission();
+}, []);
 
   if (!permission) {
     return (
@@ -62,13 +68,31 @@ export default function CameraScreen() {
   }
 
   const takePhoto = async () => {
-    if (!cameraRef.current) return;
+  if (!cameraRef.current) return;
 
+  try {
     const picture = await cameraRef.current.takePictureAsync();
 
     setPhoto(picture.uri);
     setCaptureTime(new Date().toLocaleString());
-  };
+
+    if (!mediaPermission?.granted) {
+      const result = await requestMediaPermission();
+
+      if (!result.granted) {
+        Alert.alert("Permission Denied", "Gallery permission is required.");
+        return;
+      }
+    }
+
+    await MediaLibrary.saveToLibraryAsync(picture.uri);
+
+    Alert.alert("Success", "Photo captured and saved to Gallery!");
+  } catch (error) {
+    Alert.alert("Error", "Failed to capture photo.");
+    console.log(error);
+  }
+};
 
   const deletePhoto = () => {
     Alert.alert(

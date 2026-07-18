@@ -1,4 +1,5 @@
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from "react-native";
+import { router } from "expo-router";
 
 export default function Dashboard() {
   return (
@@ -39,22 +40,28 @@ export default function Dashboard() {
         <Text style={styles.title}>Quick Actions</Text>
 
         <View style={styles.row}>
-          <TouchableOpacity style={styles.button}>
-            <Text>New Survey</Text>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => router.push("/survey")}
+          >
+            <Text style={styles.buttonText}>New Survey</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.button}>
-            <Text>Camera</Text>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => router.push("/camera")}
+          >
+            <Text style={styles.buttonText}>Camera</Text>
           </TouchableOpacity>
         </View>
 
         <View style={styles.row}>
           <TouchableOpacity style={styles.button}>
-            <Text>Location</Text>
+            <Text style={styles.buttonText}>Location</Text>
           </TouchableOpacity>
 
           <TouchableOpacity style={styles.button}>
-            <Text>Reports</Text>
+            <Text style={styles.buttonText}>Reports</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -63,7 +70,7 @@ export default function Dashboard() {
       <View style={styles.card}>
         <Text style={styles.title}>Recent Survey Summary</Text>
 
-        <Text> Road Inspection</Text>
+        <Text>Road Inspection</Text>
         <Text>Status : Completed</Text>
         <Text>Time : 10:30 AM</Text>
 
@@ -129,5 +136,11 @@ const styles = StyleSheet.create({
     padding: 15,
     borderRadius: 8,
     alignItems: "center",
+  },
+
+  buttonText: {
+    fontSize: 16,
+    fontWeight: "bold",
+    color: "#1976D2",
   },
 });
