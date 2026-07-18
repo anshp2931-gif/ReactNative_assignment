@@ -129,7 +129,7 @@ export default function Survey() {
         style={styles.input}
         onPress={() => setShowDatePicker(true)}
       >
-        <Text style={{ color: date ? "#000" : "#999" }}>
+        <Text style={{ color: date ? "#c3b8b8" : "#d24747" }}>
           {date ? date : "Select Date"}
         </Text>
       </TouchableOpacity>
@@ -139,6 +139,7 @@ export default function Survey() {
           value={selectedDate}
           mode="date"
           display={Platform.OS === "ios" ? "spinner" : "default"}
+          themeVariant="dark"
           onChange={onChangeDate}
         />
       )}
@@ -153,7 +154,7 @@ export default function Survey() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#f2f2f2",
+    backgroundColor: "#121212",
     padding: 20,
   },
 
@@ -162,20 +163,22 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     textAlign: "center",
     marginBottom: 25,
-    color: "#1976D2",
+    color: "#FFFFFF",
   },
 
   label: {
     fontSize: 16,
     fontWeight: "bold",
+    color: "#FFFFFF",
     marginBottom: 5,
     marginTop: 10,
   },
 
   input: {
-    backgroundColor: "#fff",
+    backgroundColor: "#1E1E1E",
+    color: "#FFFFFF",
     borderWidth: 1,
-    borderColor: "#ccc",
+    borderColor: "#cac0c0",
     borderRadius: 8,
     padding: 12,
     justifyContent: "center",
@@ -188,17 +191,17 @@ const styles = StyleSheet.create({
   },
 
   priorityButton: {
-    backgroundColor: "#fff",
+    backgroundColor: "#1E1E1E",
     padding: 12,
     borderRadius: 8,
     width: "30%",
     alignItems: "center",
     borderWidth: 1,
-    borderColor: "#1976D2",
+    borderColor: "#cbced2",
   },
 
   selected: {
-    backgroundColor: "#90CAF9",
+    backgroundColor: "#1976D2",
   },
 
   button: {
@@ -211,7 +214,7 @@ const styles = StyleSheet.create({
   },
 
   buttonText: {
-    color: "#fff",
+    color: "#FFFFFF",
     fontSize: 18,
     fontWeight: "bold",
   },
