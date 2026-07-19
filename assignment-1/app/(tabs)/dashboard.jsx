@@ -1,5 +1,6 @@
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from "react-native";
 import { router } from "expo-router";
+import { initialData } from "../../constants/data";
 
 export default function Dashboard() {
   return (
@@ -69,16 +70,19 @@ export default function Dashboard() {
       {/* Recent Survey */}
       <View style={styles.card}>
         <Text style={styles.title}>Recent Survey Summary</Text>
-
-        <Text>Road Inspection</Text>
-        <Text>Status : Completed</Text>
-        <Text>Time : 10:30 AM</Text>
-
-        <View style={{ height: 15 }} />
-
-        <Text>Building Survey</Text>
-        <Text>Status : Completed</Text>
-        <Text>Time : 3:45 PM</Text>
+        
+        {initialData.length > 0 ? (
+          initialData.slice(-2).reverse().map((survey, index) => (
+            <View key={survey.id}>
+              <Text>{survey.description || survey.site}</Text>
+              <Text>Status : Completed</Text>
+              <Text>Date : {survey.date}</Text>
+              {index === 0 && <View style={{ height: 15 }} />}
+            </View>
+          ))
+        ) : (
+          <Text>No recent surveys.</Text>
+        )}
       </View>
 
     </ScrollView>
